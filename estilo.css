@@ -1,0 +1,38 @@
+body{
+    background-color: aquamarine;
+}
+
+.navbar{
+    background-color: #008b8b;
+}
+.titulo1{
+    color: black;
+    text-align: center;
+}
+
+footer {
+    
+    background-color: #008b8b;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1.5fr 0.5fr;
+    justify-items: center;
+    grid-template-areas: "siguenos contacto" "copyright contacto"; }
+    footer .siguenos {
+      grid-area: "siguenos"; }
+    footer .contacto {
+      grid-area: "contacto";
+      border-style: inset;
+      width: auto;
+      text-align: center;
+      padding: 5px; }
+      footer .contacto h4 {
+        text-align: left; }
+    footer .copyright {
+      border-style: inset;
+      text-align: center;
+      padding: 5px;
+      grid-area: "copyright";
+      justify-self: center; }
+  
