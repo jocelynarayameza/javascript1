@@ -1,18 +1,25 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body{
     background-color: aquamarine;
 }
-
 .navbar{
-    background-color: #008b8b;
+    background-color: #299696;
+    padding-left: 1rem;
 }
 .titulo1{
     color: black;
     text-align: center;
+    padding: 3rem;
 }
 
 footer {
     
-    background-color: #008b8b;
+    background-color:#299696;
     padding: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -35,4 +42,12 @@ footer {
       padding: 5px;
       grid-area: "copyright";
       justify-self: center; }
-  
+
+      .card {
+        margin-bottom: 1rem;
+      }
+      .card-img-top{
+        width: fit-content;
+        align-self: center;
+        padding-top: 1rem;
+      }

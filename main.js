@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             localStorage.setItem("selectedbooks", JSON.stringify(selectedbooks))
             actualizarcarrito()
         }
+        alert("Producto agregado al carrito")
         
     })
     })
