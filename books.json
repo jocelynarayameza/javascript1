@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "nombre": "Dresde",
+    "autor": "Sinclair McKay",
+    "precio": 10000,
+    "paginas": "376 páginas",
+    "img": "https://images.cdn3.buscalibre.com/fit-in/360x360/3a/41/3a412e50e512f88c3d14e43f8d57ff1e.jpg",
+    "disponible": true,
+    "review": "terrible weno"
+  },
+  {
+    "id": 2,
+    "nombre": "Si ahora no, ¿cuándo?",
+    "autor": "Primo Levi",
+    "precio": 12000,
+    "paginas": "384 páginas",
+    "img": "https://images.cdn3.buscalibre.com/fit-in/360x360/47/cb/47cb75e99b5dd2f30d8e77448fd78b75.jpg",
+    "disponible": true
+  },
+  {
+    "id": 3,
+    "nombre": "Sin novedad en el frente",
+    "autor": "Erick Maria Remarque",
+    "precio": 9900,
+    "paginas": "232 páginas",
+    "img": "https://images.cdn3.buscalibre.com/fit-in/360x360/2f/5a/2f5a03a2da31ad73fdce2a1f730dd9a4.jpg",
+    "disponible": true
+  },
+  {
+    "id": 4,
+    "nombre": "The turn of the screw",
+    "autor": "Henry James",
+    "precio": 8000,
+    "paginas": "126 páginas",
+    "img": "https://images.cdn3.buscalibre.com/fit-in/360x360/c1/f2/c1f28c6eeaa92aaf925d14816c705362.jpg",
+    "disponible": true
+  },
+  {
+    "id": 5,
+    "nombre": "Oliver Twist",
+    "autor": "Charles Dickens",
+    "precio": 14000,
+    "paginas": "445 páginas",
+    "img": "https://images.cdn3.buscalibre.com/fit-in/360x360/39/c6/39c6da12c35ade87b4f7832c0082c82b.jpg",
+    "disponible": true
+  },
+  {
+    "id": 6,
+    "nombre": "Dagón",
+    "autor": "H. P. Lovecraft",
+    "precio": 13000,
+    "paginas": "157 páginas",
+    "img": "https://images.cdn3.buscalibre.com/fit-in/360x360/3d/8c/3d8c4e9c74be2ea57ed2f5ce8e00dd9a.jpg",
+    "disponible": true
+  },
+  {"id": 7,
+  "nombre": "Narraciones extraordinarias",
+  "autor": "Edgar Allan Poe",
+  "precio": 23590,
+  "paginas": "560 páginas",
+  "img": "https://images.cdn3.buscalibre.com/fit-in/360x360/30/70/30705bb4f89f97b6160092bb3fda5292.jpg",
+  "disponible": true
+  },
+  {"id": 8,
+  "nombre": "Inteligencias Múltiples",
+  "autor": "Howard Gardner",
+  "precio": 17990,
+  "paginas": "432 páginas",
+  "img": "https://images.cdn3.buscalibre.com/fit-in/360x360/06/c0/06c04527052f258b30da4bf348cc46a7.jpg",
+  "disponible": true
+  }
+
+]

@@ -31,23 +31,24 @@ class Libro{
     }
 }
 
-const l1 = new Libro(1, "Dresde", "Sinclair McKay", 10000, "376 páginas", "https://images.cdn3.buscalibre.com/fit-in/360x360/3a/41/3a412e50e512f88c3d14e43f8d57ff1e.jpg");
-const l2 = new Libro(2, "Si ahora no, ¿cuándo?", "Primo Levi", 12000, "384 páginas", "https://images.cdn3.buscalibre.com/fit-in/360x360/47/cb/47cb75e99b5dd2f30d8e77448fd78b75.jpg");
-const l3 = new Libro(3, "Sin novedad en el frente", "Erick Maria Remarque", 9900, "232 páginas", "https://images.cdn3.buscalibre.com/fit-in/360x360/2f/5a/2f5a03a2da31ad73fdce2a1f730dd9a4.jpg");
-const l4 = new Libro(4, "The turn of the screw", "Henry James", 8000, "126 páginas", "https://images.cdn3.buscalibre.com/fit-in/360x360/c1/f2/c1f28c6eeaa92aaf925d14816c705362.jpg");
-const l5 = new Libro(5, "Oliver Twist", "Charles Dickens", 14000, "445 páginas", "https://images.cdn3.buscalibre.com/fit-in/360x360/39/c6/39c6da12c35ade87b4f7832c0082c82b.jpg");
-const l6 = new Libro(6, "Dagón", "H. P. Lovecraft", 13000, "157 páginas", "https://images.cdn3.buscalibre.com/fit-in/360x360/3d/8c/3d8c4e9c74be2ea57ed2f5ce8e00dd9a.jpg");
-
-
 let selectedbooks = [];
+async function fetchBooks() {
+    const rawData = await fetch('books.json')
+    const bookList = await rawData.json()
+    result = []
+    bookList.forEach(rawBook => {
+        result.push(new Libro(rawBook.id, rawBook.nombre, rawBook.autor, rawBook.precio, rawBook.paginas, rawBook.img))
+    })
+    return result
+}
 
-
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", async function(event) {
     let contenedor_books = document.getElementById("contenedor_libros")
-    const books = [l1, l2, l3, l4, l5, l6]
+    const books = await fetchBooks()
     books.forEach(book => {
         contenedor_books.innerHTML += book.descripcion()
     })
+    
     books.forEach(book => {
         const btn_add = document.getElementById(`add-${book.id}`)
 
@@ -57,11 +58,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
             localStorage.setItem("selectedbooks", JSON.stringify(selectedbooks))
             actualizarcarrito()
         }
-        alert("Producto agregado al carrito")
+        Toastify({
+            text: "Producto agregado al carrito",
+            duration: 2000,
+            style: {
+                background: "linear-gradient(to right, #59b345, #dbcaaf)",
+              },
+            position: "center", 
+            }).showToast();
         
     })
     })
+    actualizarcarrito()
+
 });
+
 
 const actualizarcarrito = function(event) {
     let contenedor_carrito = document.getElementById("contenedor_carrito")
@@ -87,6 +98,14 @@ const actualizarcarrito = function(event) {
             books.splice(indice,1)
             localStorage.setItem("selectedbooks", JSON.stringify(books))
             actualizarcarrito()
+            Toastify({
+                text: "Producto eliminado del carrito",
+                duration: 2000,
+                style: {
+                    background: "linear-gradient(to right, #d82929, #dbcaaf)",
+                  },
+                position: "center", 
+                }).showToast();
     })
     })
 };
