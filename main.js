@@ -1,33 +1,35 @@
-class Libro{
-    constructor (id, nombre, autor, precio, paginas, img){
+class Book{
+    constructor (id, name, author, price, pages, img){
         this.id = id;
-        this.nombre = nombre;
-        this.autor = autor;
-        this.precio = precio;
-        this.paginas = paginas;
+        this.name = name;
+        this.author = author;
+        this.price = price;
+        this.pages = pages;
         this.img = img;
-        this.disponible = true;
+        this.available = true;
     }  
-    descripcion() {
+    description() {
         return `
         <div class="card" id="${this.id}" style="width: 18rem;">
             <img src="${this.img} " class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">${this.nombre} </h5>
-              <p class="card-text">${this.autor}</p>
-              <p class="card-text">${this.paginas}</p>
-              <p class="card-text">$${this.precio}</p>
+              <h5 class="card-title">${this.name} </h5>
+              <p class="card-text">${this.author}</p>
+              <p class="card-text">${this.pages}</p>
+              <p class="card-text">$${this.price}</p>
               <a href="#" class="btn btn-primary" id="add-${this.id}" >Agregar al carrito</a>
             </div>
           </div>`
     }
-    descripcioncarrito() {
+    cartdescription(quantity) {
         return `
         <div class="d-flex">
-            <h5 class="card-title">${this.nombre} </h5>
+            <h5 class="card-title-cart">${this.name} </h5>
+            <label for="quantity">Cantidad=</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="${quantity}" onchange="quantityUpdate(this.value, ${this.id})" >
             <button type="button" class="btn-close" id="del-${this.id}"  aria-label="Cancelar"></button>
         </div>
-        <p>$${this.precio} </p>`
+        <p>$${this.price*quantity} </p>`
     }
 }
 
@@ -37,27 +39,35 @@ async function fetchBooks() {
     const bookList = await rawData.json()
     result = []
     bookList.forEach(rawBook => {
-        result.push(new Libro(rawBook.id, rawBook.nombre, rawBook.autor, rawBook.precio, rawBook.paginas, rawBook.img))
+        result.push(new Book(rawBook.id, rawBook.name, rawBook.author, rawBook.price, rawBook.pages, rawBook.img))
     })
     return result
 }
 
 document.addEventListener("DOMContentLoaded", async function(event) {
-    let contenedor_books = document.getElementById("contenedor_libros")
+    let books_container = document.getElementById("books_container")
     const books = await fetchBooks()
     books.forEach(book => {
-        contenedor_books.innerHTML += book.descripcion()
+        books_container.innerHTML += book.description()
     })
     
     books.forEach(book => {
         const btn_add = document.getElementById(`add-${book.id}`)
 
         btn_add.addEventListener("click",()=>{
-        if (!selectedbooks.find((element) => element === book)) 
-        {selectedbooks.push(book)
+            let storedBookIndex = selectedbooks.findIndex(element => element.bookInfo.id === book.id)
+
+            if(storedBookIndex === -1) {
+                selectedbooks.push({
+                    bookInfo: book, quantity: 1
+                })
+            } else {
+                selectedbooks[storedBookIndex].quantity += 1
+            }
+            
             localStorage.setItem("selectedbooks", JSON.stringify(selectedbooks))
-            actualizarcarrito()
-        }
+            console.log(selectedbooks)
+            updateCart()
         Toastify({
             text: "Producto agregado al carrito",
             duration: 2000,
@@ -69,35 +79,51 @@ document.addEventListener("DOMContentLoaded", async function(event) {
         
     })
     })
-    actualizarcarrito()
+    updateCart()
 
 });
 
+const clearCart = function() {
+    selectedbooks = []
+    localStorage.setItem("selectedbooks", JSON.stringify(selectedbooks))
+    updateCart()
+}
 
-const actualizarcarrito = function(event) {
-    let contenedor_carrito = document.getElementById("contenedor_carrito")
-    let listaJSON = localStorage.getItem("selectedbooks")
-    let listaCarritoJS = JSON.parse(listaJSON)
-    let books = []
-    listaCarritoJS.forEach(book => {
-        let newBook = new Libro(book.id, book.nombre, book.autor, book.precio, book.paginas, book.img)
-        books.push(newBook)
+const quantityUpdate = function(quantity, bookId) {
+    selectedbooks.forEach((book) => {
+        if(book.bookInfo.id === bookId)
+            book.quantity = quantity
+    })
+    console.log(selectedbooks)
+    localStorage.setItem("selectedbooks", JSON.stringify(selectedbooks))
+    updateCart()
+}
+
+
+const updateCart = function(event) {
+    let cart_container = document.getElementById("cart_container")
+    let listJSON = localStorage.getItem("selectedbooks")
+    let cartListJS = JSON.parse(listJSON)
+    selectedbooks = []
+    cartListJS.forEach(book => {
+        let newBook = new Book(book.bookInfo.id, book.bookInfo.name, book.bookInfo.author, book.bookInfo.price, book.bookInfo.pages, book.bookInfo.img)
+        selectedbooks.push({bookInfo: newBook, quantity: book.quantity})
     })
 
-    contenedor_carrito.innerHTML=""
-    books.forEach(book => {
-        contenedor_carrito.innerHTML += book.descripcioncarrito()
+    cart_container.innerHTML=""
+    selectedbooks.forEach(book => {
+        cart_container.innerHTML += book.bookInfo.cartdescription(parseInt(book.quantity))
     })
     
-    books.forEach(book => {
+    selectedbooks.forEach(book => {
         
-        const btn_del = document.getElementById(`del-${book.id}`)
+        const btn_del = document.getElementById(`del-${book.bookInfo.id}`)
 
         btn_del.addEventListener("click",()=>{
-            let indice = books.findIndex(element => element.id == book.id)
-            books.splice(indice,1)
-            localStorage.setItem("selectedbooks", JSON.stringify(books))
-            actualizarcarrito()
+            let index = selectedbooks.findIndex(element => element.bookInfo.id == book.bookInfo.id)
+            selectedbooks.splice(index,1)
+            localStorage.setItem("selectedbooks", JSON.stringify(selectedbooks))
+            updateCart()
             Toastify({
                 text: "Producto eliminado del carrito",
                 duration: 2000,

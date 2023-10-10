@@ -32,8 +32,8 @@
 
 </header>
 <main>
-        <h1 class="titulo1">Bienvenido a Books World</h1>
-        <section class="container d-flex flex-wrap gap-4" id="contenedor_libros">
+        <h1 class="title1">Bienvenido a Books World</h1>
+        <section class="container d-flex flex-wrap gap-4" id="books_container">
             
           
     </section>
@@ -45,11 +45,11 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Carro de compras</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="contenedor_carrito">
+            <div class="modal-body" id="cart_container">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Finalizar compra</button>
+                <button type="button" class="btn btn-secondary" onclick="clearCart()" >Limpiar carrito</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Finalizar compra</button>
             </div>
         </div>
     </div>
